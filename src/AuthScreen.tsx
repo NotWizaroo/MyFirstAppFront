@@ -36,18 +36,17 @@ const AuthScreen = ({ navigation }) => {
         onChangeText={setEmail}
         keyboardType="email-address"
         autoCapitalize="none"
-        style={{ marginBottom: 16, borderBottomWidth: 1, padding: 8 }}
+        style={{ marginBottom: 16, borderBottomWidth: 1, padding: 16 }}
       />
       <TextInput
         placeholder="Пароль"
         value={password}
         onChangeText={setPassword}
         secureTextEntry
-        style={{ marginBottom: 16, borderBottomWidth: 1, padding: 8 }}
+        style={{ marginBottom: 16, borderBottomWidth: 1, padding: 16 }}
       />
       <Button title={loading ? 'Вход...' : 'Войти'} onPress={handleLogin} disabled={loading} />
     </View>
   );
 };
-
 export default AuthScreen;
