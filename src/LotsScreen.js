@@ -1,52 +1,96 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet, FlatList } from "react-native";
-import axios from "axios";
+import { View, Text, FlatList, ActivityIndicator, StyleSheet } from "react-native";
+import API from "../api"; // Импортируем наш модуль API
 
 const LotsScreen = () => {
-    const [lots, setLots] = useState([]);
+  const [lots, setLots] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-    const getLots = async () => {
-        try {
-            const response = await axios.get("http://127.0.0.1:8000/lots");
-            setLots(response.data); // Обновляем состояние
-        } catch (error) {
-            console.error("Error fetching lots:", error);
-        }
+  // Токен пользователя (в реальном приложении его нужно получить из контекста или хранилища)
+  const token = "ВАШ_ТОКЕН";
+
+  useEffect(() => {
+    const fetchLots = async () => {
+      try {
+        setLoading(true);
+        const fetchedLots = await API.getLots(token);
+        setLots(fetchedLots);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
     };
 
-    useEffect(() => {
-        getLots(); // Загружаем лоты при загрузке экрана
-    }, []);
+    fetchLots();
+  }, []);
 
+  if (loading) {
     return (
-        <View style={styles.container}>
-            <Text style={styles.title}>Available Lots</Text>
-            <FlatList
-                data={lots}
-                keyExtractor={(item) => item.id.toString()}
-                renderItem={({ item }) => (
-                    <Text style={styles.item}>{item.title}</Text>
-                )}
-            />
-        </View>
+      <View style={styles.center}>
+        <ActivityIndicator size="large" color="#0000ff" />
+      </View>
     );
+  }
+
+  if (error) {
+    return (
+      <View style={styles.center}>
+        <Text style={styles.error}>Ошибка: {error}</Text>
+      </View>
+    );
+  }
+
+  return (
+    <View style={styles.container}>
+      <FlatList
+        data={lots}
+        keyExtractor={(item) => item.id.toString()}
+        renderItem={({ item }) => (
+          <View style={styles.lotItem}>
+            <Text style={styles.title}>{item.title}</Text>
+            <Text>Жанр: {item.genre}</Text>
+            <Text>Игроков: {item.players}</Text>
+            <Text>Описание: {item.description}</Text>
+          </View>
+        )}
+      />
+    </View>
+  );
 };
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        padding: 20,
-        backgroundColor: "#fff",
-    },
-    title: {
-        fontSize: 24,
-        fontWeight: "bold",
-        marginBottom: 20,
-    },
-    item: {
-        fontSize: 18,
-        marginVertical: 10,
-    },
+  container: {
+    flex: 1,
+    padding: 10,
+    backgroundColor: "#f5f5f5",
+  },
+  center: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  lotItem: {
+    backgroundColor: "#fff",
+    padding: 15,
+    borderRadius: 5,
+    marginVertical: 5,
+    shadowColor: "#000",
+    shadowOpacity: 0.1,
+    shadowOffset: { width: 0, height: 1 },
+    shadowRadius: 2,
+    elevation: 3,
+  },
+  title: {
+    fontSize: 18,
+    fontWeight: "bold",
+    marginBottom: 5,
+  },
+  error: {
+    color: "red",
+    fontSize: 16,
+  },
 });
 
 export default LotsScreen;

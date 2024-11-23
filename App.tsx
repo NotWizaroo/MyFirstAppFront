@@ -1,44 +1,26 @@
 import React from 'react';
-import { SafeAreaView, useColorScheme, StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import HomeScreen from './src/HomeScreen'; // Ваш главный экран
-import LotsScreen from './src/LotsScreen'; // Экран для списка лотов
-import { Colors } from 'react-native/Libraries/NewAppScreen'; // Для обработки темной и светлой темы
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import HomeScreen from './src/HomeScreen';
+import LotsScreen from './src/LotsScreen';
+import LotDetailScreen from './src/LotDetailScreen'; // Импорт LotDetailScreen
+import AuthScreen from './src/AuthScreen'; 
+
 
 const Stack = createStackNavigator();
 
-const App: React.FC = () => {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
+const App = () => {
   return (
-    <SafeAreaView style={[backgroundStyle, styles.container]}>
-      <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen
-            name="Home"
-            component={HomeScreen}
-            options={{ title: 'Home' }} // Название в заголовке
-          />
-          <Stack.Screen
-            name="Lots"
-            component={LotsScreen}
-            options={{ title: 'Available Lots' }}
-          />
-        </Stack.Navigator>
-      </NavigationContainer>
-    </SafeAreaView>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Home">
+        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="Lots" component={LotsScreen} />
+        <Stack.Screen name="LotDetailScreen" component={LotDetailScreen} />
+        <Stack.Screen name="AuthScreen" component={AuthScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});
 
 export default App;
