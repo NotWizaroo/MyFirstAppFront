@@ -51,3 +51,4 @@ const AuthScreen = ({ navigation }) => {
 };
 
 export default AuthScreen;
+

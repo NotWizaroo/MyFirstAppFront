@@ -33,6 +33,8 @@ const API = {
   register: (email, password, name) =>
     request("/users/register", "POST", { email, password, name }),
 
+  getProfile: (token) => request("/users/profile", "GET", null, token),
+
   // Лоты
   getLots: (token) => request("/lots", "GET", null, token),
 
@@ -44,9 +46,13 @@ const API = {
 
   deleteLot: (id, token) => request(`/lots/${id}`, "DELETE", null, token),
 
+  getMyLots: (token) => request("/lots/my", "GET", null, token),
+
   // Аренда
   rentLot: (id, dates, token) =>
     request(`/lots/${id}/rent`, "POST", dates, token),
+
+  getRents: (token) => request("/rents", "GET", null, token),
 
   getActiveRents: (token) => request("/rents/active", "GET", null, token),
 

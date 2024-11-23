@@ -1,8 +1,7 @@
 // HomeScreen.js
 import React, { useEffect, useState } from "react";
-import { View, Text, FlatList, ActivityIndicator, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, FlatList, ActivityIndicator, StyleSheet, TouchableOpacity, Button } from "react-native";
 import API from "../api"; // Импортируем наш модуль API
-import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const HomeScreen = ({ navigation }) => {
   const [lots, setLots] = useState([]);
@@ -46,12 +45,22 @@ const HomeScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity
-        style={styles.loginButton}
-        onPress={() => navigation.navigate('AuthScreen')}
-      >
-        <Ionicons name="log-in-outline" size={32} color="blue" />
-      </TouchableOpacity>
+      <Button
+        title="Создать Лот"
+        onPress={() => navigation.navigate('CreateLotScreen', { token })}
+      />
+      <Button
+        title="Мои Лоты"
+        onPress={() => navigation.navigate('MyLotsScreen', { token })}
+      />
+      <Button
+        title="Профиль"
+        onPress={() => navigation.navigate('ProfileScreen', { token })}
+      />
+      <Button
+        title="Аренды"
+        onPress={() => navigation.navigate('RentsScreen', { token })}
+      />
       <FlatList
         data={lots}
         keyExtractor={(item) => item.id.toString()}
