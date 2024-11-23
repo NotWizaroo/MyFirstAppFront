@@ -21,6 +21,8 @@ const ProfileScreen = ({ navigation, route }) => {
       }
     };
 
+
+
     fetchProfile();
   }, [token]);
 
