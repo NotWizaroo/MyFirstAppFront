@@ -29,7 +29,7 @@ const AuthScreen = ({ navigation }) => {
 
   return (
     <View style={{ padding: 16 }}>
-      <Text style={{ fontSize: 24, fontWeight: 'bold', marginBottom: 16 }}>Авторизация</Text>
+      <Text style={{ fontSize: 32, fontWeight: 'bold', marginBottom: 16 }}>Авторизация</Text>
       <TextInput
         placeholder="Email"
         value={email}
