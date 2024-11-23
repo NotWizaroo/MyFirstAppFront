@@ -21,8 +21,6 @@ const ProfileScreen = ({ navigation, route }) => {
       }
     };
 
-
-
     fetchProfile();
   }, [token]);
 
@@ -79,5 +77,6 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
 });
+
 
 export default ProfileScreen;
