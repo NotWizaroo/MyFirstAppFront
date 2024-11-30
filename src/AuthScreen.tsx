@@ -30,7 +30,7 @@ const AuthScreen = ({ navigation }) => {
   return (
     <View style={{ padding: 16 }}>
 <<<<<<< HEAD
-      <Text style={{ fontSize: 32, fontWeight: 'bold', marginBottom: 16 }}>Авторизация</Text>
+      <Text style={{ fontSize: 20, fontWeight: 'bold', marginBottom: 16 }}>Авторизация</Text>
 =======
       <Text style={{ fontSize: 20, fontWeight: 'bold', marginBottom: 16 }}>Авторизация</Text>
 >>>>>>> bugfix/auth
@@ -54,7 +54,6 @@ const AuthScreen = ({ navigation }) => {
   );
 };
 <<<<<<< HEAD
-
 export default AuthScreen;
 
 =======
